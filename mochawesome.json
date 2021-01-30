@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2021-01-28T01:40:58.899Z",
-    "end": "2021-01-28T01:41:14.502Z",
-    "duration": 15603,
+    "failures": 1,
+    "start": "2021-01-30T00:04:09.547Z",
+    "end": "2021-01-30T00:04:23.691Z",
+    "duration": 14144,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "8d427919-5dc6-42b1-9110-2b5c09103bdf",
+      "uuid": "65510aea-1518-472f-837b-922642ddd33b",
       "title": "",
       "fullFile": "cypress/integration/compra.spec.js",
       "file": "cypress/integration/compra.spec.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "969407cf-f87a-4ab1-9b76-bba409037215",
+          "uuid": "55baf6da-be07-424f-9cbe-828621878c78",
           "title": "Compra",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "Efetuar uma compra de produto",
               "fullTitle": "Compra Efetuar uma compra de produto",
               "timedOut": null,
-              "duration": 15512,
-              "state": "passed",
-              "speed": "slow",
-              "pass": true,
-              "fail": false,
+              "duration": 14065,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
               "code": "cy.backgroundLogin();\ncy.visit('/');\nvar nomeProduto = 'Faded Short Sleeve T-shirts';\ncy.contains(nomeProduto).trigger('mouseover');\ncy.contains(nomeProduto).parent() // h5\n.siblings('div.button-container').children('a').first() //add to cart\n.click(); // Validando se o produto certo foi adicionado ao carrinho com sucesso\ncy.get('.icon-ok').parent() //h2\n.should('contain.text', 'Product successfully added to your shopping cart');\ncy.get('span#layer_cart_product_title').should('contain.text', nomeProduto); // confirmando a inserção no carrinho\ncy.get(\".button-container a[href$='controller=order']\").click(); // confirmando a inserção do summary\ncy.get(\".cart_navigation a[href$='order&step=1']\").click(); // realizando login para prosseguir a compra\n//cy.get('#email').type('semana_agilizei_tgf@mail.com');\n//cy.get('#passwd').type('agilizei');\n//cy.get('button#SubmitLogin').click();\n// verificando se o endereço de cobrança é igual da entrega\n// [type=checkbox]#addressesAreEquals\n// asserção | atributo | valor\ncy.get('[type=checkbox]#addressesAreEquals').should('have.attr', 'checked', 'checked');\ncy.get('[type=checkbox]#addressesAreEquals').should('have.attr', 'name', 'same');\ncy.get('button[name=processAddress]').click();\ncy.get('[type=checkbox]#cgv').check();\ncy.get('button[name=processCarrier').click(); // Escolhendo forma de pagamento bankwire\ncy.get('.bankwire').click(); //Clicando na confirmação do pedido a partir do texto de confirmação do pedido\ncy.get('.cart_navigation button[type=submit]').find('span').contains('I confirm my order').click(); // Verificando texto que mostra que o pedido foi confirmado\ncy.get('.cheque-indent strong').should('contain.text', 'Your order on My Store is complete.');\ncy.get('div.box').invoke('text').then(function (text) {\n  console.log(text);\n  console.log(text.match(/[A-Z][A-Z]+/g)[1]); // filtrando dentro do box o id e rtp do pedido\n  // 0 -> RTP\n  // 1 -> ID do pedido\n  // escrita de um arquivo json com o conteudo do pedido\n  // caminho do arquivo (sempre a partir do root) | conteúdo do arquivo\n  cy.writeFile('cypress/fixtures/pedido.json', {\n    id: \"\".concat(text.match(/[A-Z][A-Z]+/g)[1])\n  });\n  cy.get(\".cart_navigation a[href$='history']\").click(); //leitura de um arquivo\n  cy.readFile('cypress/fixtures/pedido.json').then(function (pedido) {\n    cy.get('tr.first_item .history_link a').should('contain.text', pedido.id);\n  }); // html\n  // o . = classe\n  // json\n  // o . = nivel dentro do caminho json\n}); //expect\n//should",
-              "err": {},
-              "uuid": "b3574535-dd80-4726-b3b8-d8cbd707c2f2",
-              "parentUUID": "969407cf-f87a-4ab1-9b76-bba409037215",
+              "err": {
+                "message": "AssertionError: Timed out retrying: Expected to find element: `[type=checkbox]#addressesAreEquals`, but never found it.",
+                "estack": "AssertionError: Timed out retrying: Expected to find element: `[type=checkbox]#addressesAreEquals`, but never found it.\n    at Context.eval (http://automationpractice.com/__cypress/tests?p=cypress/integration/compra.spec.js:124:50)",
+                "diff": null
+              },
+              "uuid": "95fb595d-8ae9-4862-8057-2d42664949bb",
+              "parentUUID": "55baf6da-be07-424f-9cbe-828621878c78",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "b3574535-dd80-4726-b3b8-d8cbd707c2f2"
+          "passes": [],
+          "failures": [
+            "95fb595d-8ae9-4862-8057-2d42664949bb"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 15512,
+          "duration": 14065,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
